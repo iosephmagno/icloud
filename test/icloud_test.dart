@@ -71,20 +71,20 @@ void main() {
   });
 
   test('listFiles', () async {
-    final iCloud = await ICloud.getInstance('containerId');
+    final iCloud = await ICloud.getInstance(containerId: 'containerId');
     final files = await iCloud.listFiles();
     expect(files, equals(metadataList));
   });
 
   test('watchFiles', () async {
-    final iCloud = await ICloud.getInstance('containerId');
+    final iCloud = await ICloud.getInstance(containerId: 'containerId');
     final stream = await iCloud.watchFiles();
     expect(_methodCall.arguments, {'watchUpdate': true});
     expect(await stream.first, equals(metadataList));
   });
 
   test('startUpload', () async {
-    final iCloud = await ICloud.getInstance('containerId');
+    final iCloud = await ICloud.getInstance(containerId: 'containerId');
     await iCloud.startUpload(filePath: '/dir/file');
     expect(_methodCall.arguments, {
       'localFilePath': '/dir/file',
@@ -115,7 +115,7 @@ void main() {
   });
 
   test('startDownload', () async {
-    final iCloud = await ICloud.getInstance('containerId');
+    final iCloud = await ICloud.getInstance(containerId: 'containerId');
     await iCloud.startDownload(
       fileName: 'file',
       destinationFilePath: '/dir/file',
@@ -153,7 +153,7 @@ void main() {
   });
 
   test('delete', () async {
-    final iCloud = await ICloud.getInstance('containerId');
+    final iCloud = await ICloud.getInstance(containerId: 'containerId');
     await iCloud.delete('file');
     expect(_methodCall.arguments, {'cloudFileName': 'file'});
 

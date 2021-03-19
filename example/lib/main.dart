@@ -96,7 +96,7 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> testListFile() async {
     try {
-      final iCloud = await ICloud.getInstance(iCloudContainerId);
+      final iCloud = await ICloud.getInstance(containerId: iCloudContainerId);
       final files = await iCloud.listFiles();
       files.forEach((file) => print('--- List Files --- file: $file'));
     } catch (err) {
@@ -106,7 +106,7 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> testWatchFile() async {
     try {
-      final iCloud = await ICloud.getInstance(iCloudContainerId);
+      final iCloud = await ICloud.getInstance(containerId: iCloudContainerId);
       final fileListStream = await iCloud.watchFiles();
       final fileListSubscription = fileListStream.listen((files) {
         files.forEach((file) => print('--- Watch Files --- file: $file'));
@@ -123,7 +123,7 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> testUploadFile() async {
     try {
-      final iCloud = await ICloud.getInstance(iCloudContainerId);
+      final iCloud = await ICloud.getInstance(containerId: iCloudContainerId);
       StreamSubscription<double?>? uploadProgressSubscription;
       var isUploadComplete = false;
 
@@ -156,7 +156,7 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> testDownloadFile() async {
     try {
-      final iCloud = await ICloud.getInstance(iCloudContainerId);
+      final iCloud = await ICloud.getInstance(containerId: iCloudContainerId);
       StreamSubscription<double?>? downloadProgressSubscription;
       var isDownloadComplete = false;
 
@@ -189,7 +189,7 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> testDeleteFile() async {
     try {
-      final iCloud = await ICloud.getInstance(iCloudContainerId);
+      final iCloud = await ICloud.getInstance(containerId: iCloudContainerId);
       await iCloud.delete('test_icloud_file');
     } catch (err) {
       handleError(err);
