@@ -122,7 +122,7 @@ public class SwiftIcloudPlugin: NSObject, FlutterPlugin {
             filePaths.append([
                 "url": relativePath,
                 "size": fileItem.fileSize,
-                "modifiedDate": fileItem.modifiedDate
+                "modifiedDate": fileItem.modifiedDate?.iso8601WithFractrionalSeconds
             ])
         }
         if watchUpdate, let streamHandler = listStreamHandler {
@@ -392,5 +392,22 @@ extension NSMetadataItem {
     }
     var fileSize: Int? {
         return self.value(forAttribute: NSMetadataItemFSSizeKey) as? Int
+    }
+}
+
+extension ISO8601DateFormatter {
+    convenience init(_ formatOptions: Options) {
+        self.init()
+        self.formatOptions = formatOptions
+    }
+}
+
+extension Formatter {
+    static let iso8601WithFractrionalSeconds = ISO8601DateFormatter([.withInternetDateTime, .withFractionalSeconds])
+}
+
+extension Date {
+    var iso8601WithFractrionalSeconds: String {
+        return Formatter.iso8601WithFractrionalSeconds.string(from: self)
     }
 }
