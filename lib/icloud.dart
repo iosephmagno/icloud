@@ -62,7 +62,7 @@ class ICloud {
   /// account
   ///
   /// Returns a future completing with an instance of the ICloudStorage class
-  static Future<ICloud> getInstance(String containerId) async {
+  static Future<ICloud> getInstance({String? containerId}) async {
     await _channel.invokeMethod('initialize', {
       'containerId': containerId,
     });
