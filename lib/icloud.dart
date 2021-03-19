@@ -44,16 +44,16 @@ class ICloud {
   static const EventChannel _listEventChannel =
       const EventChannel('icloud/event/list');
 
-  static Future<bool?> get available async {
-    return await _channel.invokeMethod('isAvailable');
+  static Future<bool> get available async {
+    return await _channel.invokeMethod('isAvailable') ?? false;
   }
 
-  static Future<Stream<bool?>> watchAvailability() async {
+  static Future<Stream<bool>> watchAvailability() async {
     await _channel.invokeMethod('watchAvailability');
     return _availabilityEventChannel
         .receiveBroadcastStream()
         .where((event) => event is bool)
-        .map((event) => event as bool?);
+        .map((event) => event as bool);
   }
 
   /// Get an instance of the ICloudStorage class
