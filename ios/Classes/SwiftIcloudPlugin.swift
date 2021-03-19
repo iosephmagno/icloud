@@ -5,7 +5,7 @@ public class SwiftIcloudPlugin: NSObject, FlutterPlugin {
     var availabilityStreamHandler: StreamHandler?
     var listStreamHandler: StreamHandler?
     var messenger: FlutterBinaryMessenger?
-    var containerId = ""
+    var containerId: String?
     
     public static func register(with registrar: FlutterPluginRegistrar) {
         let messenger = registrar.messenger();
@@ -60,13 +60,12 @@ public class SwiftIcloudPlugin: NSObject, FlutterPlugin {
     }
     
     private func initialize(_ call: FlutterMethodCall, _ result: @escaping FlutterResult) {
-        guard let args = call.arguments as? Dictionary<String, Any>,
-              let containerId = args["containerId"] as? String
+        guard let args = call.arguments as? Dictionary<String, Any>
         else {
             result(argumentError)
             return
         }
-        self.containerId = containerId
+        self.containerId = args["containerId"] as? String
         result(nil)
     }
     
