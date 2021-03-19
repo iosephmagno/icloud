@@ -122,7 +122,7 @@ class ICloud {
   Future<void> startUpload({
     required String filePath,
     String? destinationFileName,
-    StreamHandler<double?>? onProgress,
+    StreamHandler<double>? onProgress,
   }) async {
     if (filePath.trim().isEmpty) {
       throw InvalidArgumentException('invalid filePath');
@@ -141,7 +141,7 @@ class ICloud {
       final stream = uploadEventChannel
           .receiveBroadcastStream()
           .where((event) => event is double)
-          .map((event) => event as double?);
+          .map((event) => event as double);
       onProgress(stream);
     }
   }
@@ -162,7 +162,7 @@ class ICloud {
   Future<void> startDownload({
     required String fileName,
     required String destinationFilePath,
-    StreamHandler<double?>? onProgress,
+    StreamHandler<double>? onProgress,
   }) async {
     if (fileName.trim().isEmpty || fileName.contains('/')) {
       throw InvalidArgumentException('invalid fileName');
@@ -184,7 +184,7 @@ class ICloud {
       final stream = downloadEventChannel
           .receiveBroadcastStream()
           .where((event) => event is double)
-          .map((event) => event as double?);
+          .map((event) => event as double);
       onProgress(stream);
     }
   }
