@@ -158,7 +158,9 @@ public class SwiftIcloudPlugin: NSObject, FlutterPlugin {
             if !FileManager.default.fileExists(atPath: containerURL.path) {
                 try FileManager.default.createDirectory(at: containerURL, withIntermediateDirectories: true, attributes: nil)
             }
-            _ = try FileManager.default.replaceItemAt(cloudFileURL, withItemAt: localFileURL)
+            let tempFile = FileManager.default.temporaryDirectory.appendingPathComponent(localFileURL.lastPathComponent, isDirectory: false)
+            try FileManager.default.copyItem(at: localFileURL, to: tempFile)
+            _ = try FileManager.default.replaceItemAt(cloudFileURL, withItemAt: tempFile)
             if !watchUpdate { result(nil) }
         } catch {
             result(nativeCodeError(error))
@@ -295,7 +297,9 @@ public class SwiftIcloudPlugin: NSObject, FlutterPlugin {
         
         if fileURLValues.ubiquitousItemDownloadingStatus == URLUbiquitousItemDownloadingStatus.current {
             do {
-                _ = try FileManager.default.replaceItemAt(localFileURL, withItemAt: cloudFileURL)
+                let tempFile = FileManager.default.temporaryDirectory.appendingPathComponent(cloudFileURL.lastPathComponent, isDirectory: false)
+                try FileManager.default.copyItem(at: cloudFileURL, to: tempFile)
+                _ = try FileManager.default.replaceItemAt(localFileURL, withItemAt: tempFile)
                 streamHandler.setEvent(FlutterEndOfEventStream)
             } catch {
                 streamHandler.setEvent(nativeCodeError(error))
