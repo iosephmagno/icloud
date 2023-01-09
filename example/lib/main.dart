@@ -47,8 +47,8 @@ class _MyAppState extends State<MyApp> {
                 onPressed: cancelWatchAvailability,
               ),
               TextButton(
-                child: Text('List File'),
-                onPressed: testListFile,
+                child: Text('List Files'),
+                onPressed: testListFiles,
               ),
               TextButton(
                 child: Text('Watch File'),
@@ -99,7 +99,7 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  Future<void> testListFile() async {
+  Future<void> testListFiles() async {
     try {
       final iCloud = await ICloud.getInstance(containerId: iCloudContainerId);
       final files = await iCloud.listFiles();
