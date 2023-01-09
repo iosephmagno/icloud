@@ -34,29 +34,26 @@ on cancel
 
 
 ## TESTING ON EMULATOR:
-Inconsistent progress, it starts with 95%, then progress decreases to zero, and then eventually stalls at 95%
 
 ### Upload:
-on listen
-flutter: --- Upload File --- progress: 95.0
+Inconsistent progress, it starts with 100%, then progress decreases to zero, and then shows 95% and goes to 100%.
+Unlike with device, on emulator File upload completes. 
+
+flutter: --- Upload File --- progress: 100.0
 
 flutter: --- Upload File --- progress: 0.0
 
-flutter: --- Upload File --- progress: 94.05939192034373
-
 flutter: --- Upload File --- progress: 95.0
 
-flutter: --- Upload File --- timed out
+flutter: --- Upload File --- progress: 100.0
 
-on cancel
+flutter: --- Upload File --- done
+
 
 ### Download:
 It shows 100% progress instantly, even with a bigger file.
 
-on listen
 flutter: --- Download File --- progress: 100.0
-
-on cancel
 
 flutter: --- Download File --- done
 
