@@ -2,6 +2,11 @@
 
 Testing icloud plugin
 
+## How to test example
+- Tap Check Availability and wait (it might take little time)
+- Tap Start Upload (it first download an image from web and upload it to iCloud)
+- Tap Download (it download previous image from iCloud)
+
 ## Debug Report
 
 ## TESTING ON DEVICE: iphone 13 pro ios 16
