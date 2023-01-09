@@ -3,6 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:icloud/icloud.dart';
+import 'package:dio/dio.dart';
+import 'package:path_provider/path_provider.dart';
+
+export 'package:path_provider_platform_interface/path_provider_platform_interface.dart'
+    show StorageDirectory;
 
 void main() {
   runApp(MyApp());
@@ -14,7 +19,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  static const iCloudContainerId = '{your icloud container id}';
+  static const iCloudContainerId = 'iCloud.com.presence.app';
 
   StreamSubscription? subscription;
 
@@ -127,12 +132,30 @@ class _MyAppState extends State<MyApp> {
       StreamSubscription<double?>? uploadProgressSubscription;
       var isUploadComplete = false;
 
+      //Get file from web
+      final tempDir = await getTemporaryDirectory();
+      final dio = Dio();
+      Response response = await dio.download(
+        //  64KB image - use this link to test with small filesize
+        //  'https://res.cloudinary.com/dornu6mmy/image/upload/v1637745528/POSTS/l9flihokyfchdjauhgkz.jpg',
+          // 1.2MB image - use this link to test with medium filesize
+            'https://images.unsplash.com/flagged/photo-1568164017397-00f2cec55c97?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb',
+          '${tempDir.path}/image.jpg');
+      print(tempDir.path);
+      if (response.statusCode == 200){
+        print("File fetched from web successfully");
+      } else{
+        print("Couldn't fetch file from web");
+      }
+
       await iCloud.startUpload(
-        filePath: '{your local file}',
-        destinationFileName: 'test_icloud_file',
+
+        filePath: '${tempDir.path}/image.jpg',
+        //destinationFileName: 'test_icloud_file',
+        destinationFileName: 'image.jpg',
         onProgress: (stream) {
           uploadProgressSubscription = stream.listen(
-            (progress) => print('--- Upload File --- progress: $progress'),
+                (progress) => print('--- Upload File --- progress: $progress'),
             onDone: () {
               isUploadComplete = true;
               print('--- Upload File --- done');
@@ -159,13 +182,14 @@ class _MyAppState extends State<MyApp> {
       final iCloud = await ICloud.getInstance(containerId: iCloudContainerId);
       StreamSubscription<double?>? downloadProgressSubscription;
       var isDownloadComplete = false;
+      final tempDir = await getTemporaryDirectory();
 
       await iCloud.startDownload(
-        fileName: 'test_icloud_file',
-        destinationFilePath: '{your destination file path}',
+        fileName: 'image.jpg',
+        destinationFilePath: '${tempDir.path}/image.jpg',
         onProgress: (stream) {
           downloadProgressSubscription = stream.listen(
-            (progress) => print('--- Download File --- progress: $progress'),
+                (progress) => print('--- Download File --- progress: $progress'),
             onDone: () {
               isDownloadComplete = true;
               print('--- Download File --- done');
@@ -190,7 +214,7 @@ class _MyAppState extends State<MyApp> {
   Future<void> testDeleteFile() async {
     try {
       final iCloud = await ICloud.getInstance(containerId: iCloudContainerId);
-      await iCloud.delete('test_icloud_file');
+      await iCloud.delete('image.jpg');
     } catch (err) {
       handleError(err);
     }
