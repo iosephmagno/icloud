@@ -1,16 +1,57 @@
 # icloud_example
 
-Demonstrates how to use the icloud plugin.
+Testing icloud plugin
 
-## Getting Started
+## Debug Report
 
-This project is a starting point for a Flutter application.
+## TESTING ON DEVICE: iphone 13 pro ios 16
 
-A few resources to get you started if this is your first Flutter project:
+### Upload:
+It instantly shows 95% and stalls with timeout
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+on listen
+flutter: --- Upload File --- progress: 95.0
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+flutter: --- Upload File --- progress: 95.0
+
+flutter: --- Upload File --- timed out
+
+on cancel
+
+### Download:
+It shows 100% progress instantly, even with a bigger file.
+
+flutter: --- Download File --- progress: 100.0
+
+flutter: --- Download File --- done
+
+on cancel
+
+
+## TESTING ON EMULATOR:
+Inconsistent progress, it starts with 95%, then progress decreases to zero, and then eventually stalls at 95%
+
+### Upload:
+on listen
+flutter: --- Upload File --- progress: 95.0
+
+flutter: --- Upload File --- progress: 0.0
+
+flutter: --- Upload File --- progress: 94.05939192034373
+
+flutter: --- Upload File --- progress: 95.0
+
+flutter: --- Upload File --- timed out
+
+on cancel
+
+### Download:
+It shows 100% progress instantly, even with a bigger file.
+
+on listen
+flutter: --- Download File --- progress: 100.0
+
+on cancel
+
+flutter: --- Download File --- done
+
