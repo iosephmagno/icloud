@@ -138,8 +138,8 @@ class _MyAppState extends State<MyApp> {
       Response response = await dio.download(
         //  64KB image - use this link to test with small filesize
         //  'https://res.cloudinary.com/dornu6mmy/image/upload/v1637745528/POSTS/l9flihokyfchdjauhgkz.jpg',
-          // 1.2MB image - use this link to test with medium filesize
-         //   'https://images.unsplash.com/flagged/photo-1568164017397-00f2cec55c97?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb',
+        // 1.2MB image - use this link to test with medium filesize
+        //   'https://images.unsplash.com/flagged/photo-1568164017397-00f2cec55c97?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb',
         // 21MB pic
            'https://images.pexels.com/photos/1168742/pexels-photo-1168742.jpeg',
           '${tempDir.path}/image.jpg');
@@ -154,7 +154,7 @@ class _MyAppState extends State<MyApp> {
 
         filePath: '${tempDir.path}/image.jpg',
         //destinationFileName: 'test_icloud_file',
-        destinationFileName: 'image2.jpg',
+        destinationFileName: 'image.jpg',
         onProgress: (stream) {
           uploadProgressSubscription = stream.listen(
                 (progress) => print('--- Upload File --- progress: $progress'),
