@@ -163,7 +163,7 @@ class _MyAppState extends State<MyApp> {
               print('--- Upload File --- done');
             },
             onError: (err) => print('--- Upload File --- error: $err'),
-            cancelOnError: true,
+            cancelOnError: false,
           );
         },
       );
