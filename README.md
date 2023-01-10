@@ -42,7 +42,7 @@ on cancel
 File is deleted correctly. You can see it by running again List Files
 
 
-## TESTING ON EMULATOR:
+## TESTING ON EMULATOR - iOS 15.
 
 ### Upload:
 Inconsistent progress, it starts with 100%, then progress decreases to zero, and then shows 95% and goes to 100%.
