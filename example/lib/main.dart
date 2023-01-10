@@ -139,7 +139,9 @@ class _MyAppState extends State<MyApp> {
         //  64KB image - use this link to test with small filesize
         //  'https://res.cloudinary.com/dornu6mmy/image/upload/v1637745528/POSTS/l9flihokyfchdjauhgkz.jpg',
           // 1.2MB image - use this link to test with medium filesize
-            'https://images.unsplash.com/flagged/photo-1568164017397-00f2cec55c97?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb',
+         //   'https://images.unsplash.com/flagged/photo-1568164017397-00f2cec55c97?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb',
+        // 21MB pic
+           'https://images.pexels.com/photos/1168742/pexels-photo-1168742.jpeg',
           '${tempDir.path}/image.jpg');
       print(tempDir.path);
       if (response.statusCode == 200){
@@ -152,7 +154,7 @@ class _MyAppState extends State<MyApp> {
 
         filePath: '${tempDir.path}/image.jpg',
         //destinationFileName: 'test_icloud_file',
-        destinationFileName: 'image.jpg',
+        destinationFileName: 'image2.jpg',
         onProgress: (stream) {
           uploadProgressSubscription = stream.listen(
                 (progress) => print('--- Upload File --- progress: $progress'),
@@ -166,12 +168,15 @@ class _MyAppState extends State<MyApp> {
         },
       );
 
+      // a 10sec timeout is used to workaround an issue by which upload progress gets stalled
+      // the file gets uploaded but onDone is never called without this timeout
       Future.delayed(Duration(seconds: 10), () {
         if (!isUploadComplete) {
           uploadProgressSubscription?.cancel();
           print('--- Upload File --- timed out');
         }
       });
+
     } catch (err) {
       handleError(err);
     }
