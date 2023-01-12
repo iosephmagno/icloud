@@ -51,7 +51,7 @@
             <key>iCloud.com.presence.app</key>
             <dict>
                 <key>NSUbiquitousContainerIsDocumentScopePublic</key>
-                <true/>
+                <false/>
                 <key>NSUbiquitousContainerName</key>
                 <string>PresenceCloudBackup</string>
                 <key>NSUbiquitousContainerSupportedFolderLevels</key>
